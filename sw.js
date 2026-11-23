@@ -1,7 +1,7 @@
 // Import the IndexedDB mini-wrapper inside the Service Worker context
 importScripts('./db-helper.js');
 
-const CACHE_STATIC_NAME = 'static-outbox-v2';
+const CACHE_STATIC_NAME = 'static-outbox-v3';
 const STATIC_FILES = [
   './',
   './index.html',
@@ -9,7 +9,9 @@ const STATIC_FILES = [
   './db-helper.js',
   './app.js',
   './manifest.json',
-  './icon.svg'
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/apple-touch-icon.png'
 ];
 const API_ENDPOINT = 'https://jsonplaceholder.typicode.com/posts';
 

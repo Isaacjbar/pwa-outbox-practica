@@ -16,6 +16,49 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// ---- Installability ----
+let eventoInstalacionDiferido = null;
+const btnInstalar = document.getElementById('btn-instalar');
+const avisoIOS = document.getElementById('instrucciones-ios');
+
+// Android / Chrome
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  eventoInstalacionDiferido = event;
+  btnInstalar.hidden = false;
+});
+
+btnInstalar.addEventListener('click', () => {
+  if (!eventoInstalacionDiferido) return;
+  eventoInstalacionDiferido.prompt();
+  eventoInstalacionDiferido.userChoice.then((resultado) => {
+    if (resultado.outcome === 'accepted') {
+      btnInstalar.hidden = true;
+    }
+    eventoInstalacionDiferido = null;
+  });
+});
+
+window.addEventListener('appinstalled', () => {
+  btnInstalar.hidden = true;
+  avisoIOS.hidden = true;
+});
+
+// iOS / Safari: no beforeinstallprompt, show manual instructions
+function verificarEntornoIOS() {
+  const esIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const estaInstalada = window.navigator.standalone === true ||
+                        window.matchMedia('(display-mode: standalone)').matches;
+
+  if (esIOS && !estaInstalada) {
+    avisoIOS.hidden = false;
+  }
+}
+verificarEntornoIOS();
+document.getElementById('btn-cerrar-ios').addEventListener('click', () => {
+  avisoIOS.hidden = true;
+});
+
 // ---- Network indicator ----
 function actualizarIndicadorRed() {
   const badge = document.getElementById('badge-red');

@@ -4,18 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0f766e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Outbox">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>PWA Outbox - Sincronización Offline</title>
   <link rel="stylesheet" href="./styles.css">
   <link rel="manifest" href="./manifest.json">
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
 </head>
 <body>
   <header>
-    <h1>Registro de Incidencias en Campo</h1>
-    <span id="badge-red" class="badge online">En Línea</span>
+    <div>
+      <h1>Registro de Incidencias en Campo</h1>
+      <p class="autor">Alumno: Isaac Jimenez Barcelata</p>
+    </div>
+    <div class="header-acciones">
+      <button id="btn-instalar" type="button" hidden>Instalar App</button>
+      <span id="badge-red" class="badge online">En Línea</span>
+    </div>
   </header>
 
   <main>
+    <!-- iOS only: Safari never fires beforeinstallprompt -->
+    <section id="instrucciones-ios" class="card aviso-ios" hidden>
+      <strong>Instala esta app en tu iPhone</strong>
+      <ol>
+        <li>Pulsa el icono <b>Compartir</b> (cuadro con flecha hacia arriba) en Safari.</li>
+        <li>Selecciona <b>Agregar a inicio</b>.</li>
+        <li>Pulsa <b>Agregar</b>.</li>
+      </ol>
+      <button id="btn-cerrar-ios" type="button">Entendido</button>
+    </section>
+
     <section class="card">
       <h2>Nueva Incidencia</h2>
       <form id="form-incidencia">
